@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+require 'csv'
+
+def parse_line(line, number_of_columns)
+  rest = line
+  fields = []
+  begin
+    match = /\| +([^\|]*?) +(\|.*)$/.match(rest)
+    if match
+      fields.push(match[1])
+      rest = match[2]
+    end
+  end while match
+  return fields
+end
+
+csv_output = CSV.generate do |csv|
+  number_of_columns = nil
+  ARGF.each_with_index do |line, idx| 
+    fields = parse_line(line, number_of_columns)
+    number_of_columns ||= fields.size if fields.size > 0
+    csv << fields unless fields.count == 0
+  end
+end
+puts csv_output
