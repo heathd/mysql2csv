@@ -1,0 +1,12 @@
+mysql2csv
+=========
+
+A simple script to convert mysqls tabular output into csv. I can never be bothered to
+remember the 'FIELDS SEPARATED BY' etc syntax.
+
+$ mysql mysql
+mysql> \T /tmp/data.out
+Logging to file '/tmp/data.out'
+mysql> select * from user;
+mysql> exit
+$ mysql2csv /tmp/data.out > data.csv
